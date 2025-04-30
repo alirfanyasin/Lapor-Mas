@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>LAPOR!</title>
+  <title>{{ $title ?? '' . ' | ' . env('APP_NAME') }}</title>
   {{-- Quil Editor --}}
   <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
   <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
@@ -38,37 +38,58 @@
       </header>
 
       <div class="max-w-3xl p-8 mx-auto bg-white rounded shadow-xl">
+        <div class="p-4 text-lg text-white">
+
+        </div>
         <h1 class="mb-6 text-2xl font-bold text-green-light">Sampaikan Laporan Anda</h1>
-        <form class="space-y-4">
+        <form action="{{ route('store.report') }}" class="space-y-4" method="POST" enctype="multipart/form-data"
+          onsubmit="syncQuillContent()">
+          @csrf
           <div class="mb-4">
             <div class="flex space-x-4">
-              <select class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-[#00cba9]">
-                <option>Pilih Klasifikasi Laporan Anda</option>
-                <option value="pengaduan">Pengaduan</option>
-                <option value="aspirasi">Aspirasi</option>
-                <option value="informasi">Permintaan Informasi</option>
+              <select name="kategori"
+                class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-[#00cba9]">
+                <option selected disabled>Pilih Klasifikasi Laporan Anda</option>
+                <option value="Pengaduan">Pengaduan</option>
+                <option value="Aspirasi">Aspirasi</option>
+                <option value="Permintaan Informasi">Permintaan Informasi</option>
               </select>
             </div>
           </div>
           <div>
-            <input type="text" placeholder="Ketik Nama Pelapor *"
+            <input type="text" placeholder="Ketik Nama Pelapor *" name="nama"
               class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-[#00cba9]">
+            @error('nama')
+              <small class="text-red-800">{{ $message }}</small>
+            @enderror
           </div>
           <div>
-            <input type="text" placeholder="Ketik Judul Laporan Anda *"
+            <input type="text" placeholder="Ketik Judul Laporan Anda *" name="judul"
               class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-[#00cba9]">
+            @error('judul')
+              <small class="text-red-800">{{ $message }}</small>
+            @enderror
           </div>
           <div>
-            <textarea placeholder="Ketik Isi Laporan Anda *" rows="5" id="editor"
-              class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-[#00cba9]"></textarea>
+            <div id="editor" class="min-h-40"></div>
+            <input type="hidden" name="laporan" id="laporan">
+            @error('laporan')
+              <small class="text-red-800">{{ $message }}</small>
+            @enderror
           </div>
           <div class="relative">
-            <input type="date" placeholder="Pilih Tanggal Kejadian *"
+            <input type="date" placeholder="Pilih Tanggal Kejadian *" name="tanggal"
               class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-[#00cba9]">
+            @error('tanggal')
+              <small class="text-red-800">{{ $message }}</small>
+            @enderror
           </div>
           <div>
-            <input type="text" placeholder="Ketik Lokasi Kejadian *"
+            <input type="text" placeholder="Ketik Lokasi Kejadian *" name="lokasi"
               class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-[#00cba9]">
+            @error('lokasi')
+              <small class="text-red-800">{{ $message }}</small>
+            @enderror
           </div>
 
           <div class="w-full mx-auto">
@@ -76,77 +97,49 @@
               class="flex flex-col items-center justify-center w-full h-48 transition border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100"
               ondragover="event.preventDefault()" ondrop="handleDrop(event)">
               <iconify-icon icon="octicon:upload-16" width="50" height="50" class="text-gray-200"></iconify-icon>
-              <p class="text-sm text-gray-500">
-                <span class="block text-lg font-bold text-center">Upload Lampiran</span>
+              <p class="text-sm text-center text-gray-500">
+                <span class="block text-lg font-bold">Upload Lampiran</span>
                 <span class="font-semibold">Click to upload</span> or drag and drop
               </p>
-              <input id="file-upload" type="file" class="hidden" />
+              <input id="file-upload" type="file" class="hidden" name="lampiran" onchange="previewFile()" />
             </label>
+
+            <!-- Loading -->
+            <div id="loading" class="flex items-center justify-center hidden mt-4">
+              <svg class="w-6 h-6 text-blue-600 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                </circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+              </svg>
+              <span class="ml-2 text-sm text-gray-600">Uploading...</span>
+            </div>
+
+            <!-- Preview -->
+            <div id="preview" class="mt-4 text-center"></div>
           </div>
 
           <div class="flex justify-end mt-6">
-            <button
-              class="px-6 py-2 font-bold text-white rounded bg-green-light hover:cursor-pointer hover:bg-green-700"
-              onclick="getEditorContent()">LAPOR!</button>
+            <button type="submit"
+              class="px-6 py-2 font-bold text-white rounded bg-green-light hover:cursor-pointer hover:bg-green-700">LAPOR!</button>
           </div>
         </form>
       </div>
     </section>
   </main>
 
-
-
-  {{-- Particle JS --}}
-  <script src="{{ asset('assets/particles.js') }}"></script>
+  @include('partials.js-home')
   <script>
-    particlesJS.load('particles-js', 'assets/particles.json', function() {
-      console.log('callback - particles.js config loaded');
-    });
-  </script>
-
-  {{-- Iconify --}}
-  <script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
-
-  {{-- Quill Editor --}}
-  <script>
-    var quill = new Quill('#editor', {
-      theme: 'snow',
-      placeholder: 'Silakan tulis isi laporan Anda di sini...',
-      modules: {
-        toolbar: [
-          [{
-            'header': '1'
-          }, {
-            'header': '2'
-          }],
-          [{
-            'list': 'ordered'
-          }, {
-            'list': 'bullet'
-          }],
-          ['bold', 'italic', 'underline'],
-          ['link'],
-          [{
-            'align': []
-          }],
-        ]
-      }
-    });
-
-    function getEditorContent() {
-      var content = quill.root.innerHTML;
-      console.log(content); // Konten HTML dari editor
+    // Fungsi untuk menyalin konten ke input sebelum submit
+    function syncQuillContent() {
+      const html = quill.root.innerHTML;
+      document.getElementById('laporan').value = html;
     }
-  </script>
-  <script>
-    function handleDrop(event) {
-      event.preventDefault();
-      const files = event.dataTransfer.files;
-      document.getElementById('file-upload').files = files;
 
-      // Optional: tampilkan nama file
-      alert(`File dropped: ${files[0].name}`);
-    }
+    @if (old('laporan'))
+      quill.root.innerHTML = `{!! old('laporan') !!}`;
+      document.getElementById('laporan').value = `{!! old('laporan') !!}`;
+    @endif
   </script>
 
 </body>

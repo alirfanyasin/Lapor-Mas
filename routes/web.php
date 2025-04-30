@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [ReportController::class, 'index'])->name('home');
+Route::post('/', [ReportController::class, 'store'])->name('store.report');
 
 
 Route::get('/dashboard', function () {
