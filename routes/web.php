@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminAuthController;
 
 Route::get('/', [ReportController::class, 'index'])->name('home');
 Route::post('/', [ReportController::class, 'store'])->name('store.report');
@@ -48,3 +49,10 @@ Route::prefix('app')->group(function () {
 Route::get('/starter-page', function () {
     return view('pages.starter-page');
 })->name('starter-page');
+
+// Tampilkan form login
+Route::get('/admin/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login.form');
+// Proses login
+Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login');
+// Logout admin
+Route::get('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
