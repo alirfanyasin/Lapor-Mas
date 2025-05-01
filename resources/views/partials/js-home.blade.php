@@ -83,4 +83,21 @@
       loading.classList.add('hidden');
     }
   }
+
+  // Alert
+  const alertBox = document.getElementById('alert-box');
+
+  function closeAlert() {
+    alertBox.classList.remove('show');
+    setTimeout(() => alertBox.style.display = 'none', 500); // tunggu animasi keluar
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    alertBox.classList.add('show');
+
+    // Otomatis tutup setelah 10 detik
+    setTimeout(() => {
+      closeAlert();
+    }, 7000);
+  });
 </script>
