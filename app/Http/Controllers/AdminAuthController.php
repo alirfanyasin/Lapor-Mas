@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AdminAuthController extends Controller
@@ -15,25 +17,27 @@ class AdminAuthController extends Controller
 
     public function login(Request $request)
     {
-        $request->validate([
-            'email'    => 'required|email',
-            'password' => 'required',
+        $credentials = $request->validate([
+            'email'    => ['required', 'email'],
+            'password' => ['required'],
         ]);
 
-        $admin = Admin::where('email', $request->email)->first();
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
 
-        if ($admin && Hash::check($request->password, $admin->password)) {
-            // Simpan data admin ke session
-            session(['admin_id' => $admin->id]);
-            return redirect('/dashboard');
+            return redirect()->intended('/app/dashboard');
         }
 
-        return redirect()->back()->with('error', 'Email atau password salah.');
+        return back()->withErrors(['error' => 'Email atau password salah']);
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        session()->forget('admin_id');
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
         return redirect('/admin/login');
     }
 }

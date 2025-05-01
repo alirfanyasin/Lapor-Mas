@@ -4,7 +4,7 @@
 {{-- Particle JS --}}
 <script src="{{ asset('assets/particles.js') }}"></script>
 <script>
-  particlesJS.load('particles-js', 'assets/particles.json', function() {
+  particlesJS.load('particles-js', '/assets/particles.json', function() {
     console.log('callback - particles.js config loaded');
   });
 </script>
