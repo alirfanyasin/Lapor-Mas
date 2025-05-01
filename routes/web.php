@@ -3,6 +3,7 @@
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\LaporanController;
 
 Route::get('/', [ReportController::class, 'index'])->name('home');
 Route::post('/', [ReportController::class, 'store'])->name('store.report');
@@ -56,3 +57,7 @@ Route::get('/admin/login', [AdminAuthController::class, 'showLoginForm'])->name(
 Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login');
 // Logout admin
 Route::get('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+
+Route::get('/dashboard', [LaporanController::class, 'index'])->name('dashboard');
+Route::patch('/laporan/{id}/status', [LaporanController::class, 'updateStatus'])->name('laporan.updateStatus');
+

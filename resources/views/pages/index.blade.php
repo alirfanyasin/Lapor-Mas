@@ -1,314 +1,155 @@
 @extends('layouts.template')
 @section('content')
-  <div class="grid xl:grid-cols-4 md:grid-cols-2 gap-6 mb-6">
-    <div class="card group overflow-hidden transition-all duration-500 hover:shadow-lg hover:-translate-y-0.5">
-      <div class="card-body">
-        <div class="flex items- justify-between">
-          <div>
-            <p class="text-xs tracking-wide font-semibold uppercase text-default-700 mb-3">Cost per Unit</p>
-            <h4 class="font-semibold text-2xl text-default-700">$85.50</h4>
-          </div>
-
-          <div class="rounded flex justify-center items-center size-12 bg-primary/10 text-primary">
-            <i class="material-symbols-rounded text-2xl transition-all group-hover:fill-1">shopping_bag</i>
-          </div>
-        </div>
-      </div>
-      <div id="total-order"></div>
-    </div>
-
-    <div class="card group overflow-hidden transition-all duration-500 hover:shadow-lg hover:-translate-y-0.5">
-      <div class="card-body">
-        <div class="flex items- justify-between">
-          <div>
-            <p class="text-xs tracking-wide font-semibold uppercase text-default-700 mb-3">Market Revenue</p>
-            <h4 class="font-semibold text-2xl text-default-700">$12,548.25</h4>
-          </div>
-
-          <div class="rounded flex justify-center items-center size-12 bg-secondary/10 text-secondary">
-            <i class="material-symbols-rounded text-2xl transition-all group-hover:fill-1">payments</i>
-          </div>
-        </div>
-      </div>
-      <div id="total-sale"></div>
-    </div>
-
-    <div class="card group overflow-hidden transition-all duration-500 hover:shadow-lg hover:-translate-y-0.5">
-      <div class="card-body">
-        <div class="flex items- justify-between">
-          <div>
-            <p class="text-xs tracking-wide font-semibold uppercase text-default-700 mb-3">Expenses</p>
-            <h4 class="font-semibold text-2xl text-default-700">$8,451.28</h4>
-          </div>
-
-          <div class="rounded flex justify-center items-center size-12 bg-warning/10 text-warning">
-            <i class="material-symbols-rounded text-2xl transition-all group-hover:fill-1">visibility</i>
-          </div>
-        </div>
-      </div>
-      <div id="total-visits"></div>
-    </div>
-
-    <div class="card group overflow-hidden transition-all duration-500 hover:shadow-lg hover:-translate-y-0.5">
-      <div class="card-body">
-        <div class="flex items- justify-between">
-          <div>
-            <p class="text-xs tracking-wide font-semibold uppercase text-default-700 mb-3">Daily Visit</p>
-            <h4 class="font-semibold text-2xl text-default-700">1,12,584</h4>
-          </div>
-
-          <div class="rounded flex justify-center items-center size-12 bg-danger/10 text-danger">
-            <i class="material-symbols-rounded text-2xl transition-all group-hover:fill-1">account_balance</i>
-          </div>
-        </div>
-      </div>
-      <div id="chart4"></div>
-    </div>
-  </div>
-
-  <div class="grid xl:grid-cols-3 md:grid-cols-2 gap-6 mb-6">
-    <div class="card">
-      <div class="card-header">
-        <h4 class="card-title">All Time Best Products</h4>
-        <p class="text-base text-default-500 mt-1">From date of 1st Jan 2019 to continue</p>
-      </div>
-
-      <div class="card-body">
-        <div id="morris-donut-example" class="morris-chart"></div>
-      </div> <!-- end card-body-->
-    </div> <!-- end card-->
-
-    <div class="xl:col-span-2">
+  <div class="grid grid-cols-12 gap-6">
+    <!-- Statistik Utama dalam Bentuk Kartu -->
+    <div class="col-span-12">
       <div class="card">
         <div class="card-header">
-          <h4 class="card-title">Sales Analytics</h4>
-          <p class="text-base text-default-500 mt-1">From date of 1st Jan 2019 to continue</p>
+          <h4 class="card-title">Statistik Laporan</h4>
         </div>
         <div class="card-body">
-          <div id="morris-bar-example" class="morris-chart"></div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div class="bg-blue-50 p-4 rounded-lg shadow-md">
+              <div class="text-gray-500 text-sm">Total Laporan</div>
+              <div class="text-2xl font-bold">{{ $total }}</div>
+            </div>
+            <div class="bg-blue-50 p-4 rounded-lg shadow-md">
+              <div class="text-gray-500 text-sm">Laporan Hari Ini</div>
+              <div class="text-2xl font-bold">{{ $masukHariIni }}</div>
+            </div>
+            <div class="bg-blue-50 p-4 rounded-lg shadow-md">
+              <div class="text-gray-500 text-sm">Laporan Minggu Ini</div>
+              <div class="text-2xl font-bold">{{ $masukMingguIni }}</div>
+            </div>
+            <div class="bg-blue-50 p-4 rounded-lg shadow-md">
+              <div class="text-gray-500 text-sm">Laporan Bulan Ini</div>
+              <div class="text-2xl font-bold">{{ $masukBulanIni }}</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="grid xl:grid-cols-2 gap-6">
-    <div class="card">
-      <div class="card-header">
-        <h4 class="card-title">Recent Customers</h4>
-        <p class="text-base text-default-500 mt-1">Transaction period from 21 July to 25 Aug</p>
-      </div>
-      <div class="card-ody">
-        <div class="overflow-x-auto">
-          <table class="table-auto w-full border-collapse">
-            <thead class="bg-default-100 border-b border-default-200">
-              <tr>
-                <th class="px-4 py-2 text-left">Customer</th>
-                <th class="px-4 py-2 text-left">Phone</th>
-                <th class="px-4 py-2 text-left">Email</th>
-                <th class="px-4 py-2 text-left">Location</th>
-                <th class="px-4 py-2 text-left">Create Date</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-default-200">
-              <tr class="hover:bg-default-50">
-                <td class="px-4 py-2 flex items-center gap-2">
-                  <img src="assets/images/users/avatar-4.jpg" alt="table-user" class="size-9 rounded-full">
-                  <a href="javascript:void(0);" class="font-semibold text-default-800">Paul
-                    J. Friend</a>
-                </td>
-                <td class="px-4 py-2">937-330-1634</td>
-                <td class="px-4 py-2">pauljfrnd@jourrapide.com</td>
-                <td class="px-4 py-2">New York</td>
-                <td class="px-4 py-2">07/07/2024</td>
-              </tr>
-              <tr class="hover:bg-default-50">
-                <td class="px-4 py-2 flex items-center gap-2">
-                  <img src="assets/images/users/avatar-3.jpg" alt="table-user" class="size-9 rounded-full">
-                  <a href="javascript:void(0);" class="font-semibold text-default-800">Bryan
-                    J. Luellen</a>
-                </td>
-                <td class="px-4 py-2">215-302-3376</td>
-                <td class="px-4 py-2">bryuellen@dayrep.com</td>
-                <td class="px-4 py-2">New York</td>
-                <td class="px-4 py-2">09/12/2024</td>
-              </tr>
-              <tr class="hover:bg-default-50">
-                <td class="px-4 py-2 flex items-center gap-2">
-                  <img src="assets/images/users/avatar-8.jpg" alt="table-user" class="size-9 rounded-full">
-                  <a href="javascript:void(0);" class="font-semibold text-default-800">Kathryn S. Collier</a>
-                </td>
-                <td class="px-4 py-2">828-216-2190</td>
-                <td class="px-4 py-2">collier@jourrapide.com</td>
-                <td class="px-4 py-2">Canada</td>
-                <td class="px-4 py-2">06/30/2024</td>
-              </tr>
-              <tr class="hover:bg-default-50">
-                <td class="px-4 py-2 flex items-center gap-2">
-                  <img src="assets/images/users/avatar-1.jpg" alt="table-user" class="size-9 rounded-full">
-                  <a href="javascript:void(0);" class="font-semibold text-default-800">Timothy Kauper</a>
-                </td>
-                <td class="px-4 py-2">(216) 75 612 706</td>
-                <td class="px-4 py-2">thykauper@rhyta.com</td>
-                <td class="px-4 py-2">Denmark</td>
-                <td class="px-4 py-2">09/08/2024</td>
-              </tr>
-              <tr class="hover:bg-default-50">
-                <td class="px-4 py-2 flex items-center gap-2">
-                  <img src="assets/images/users/avatar-5.jpg" alt="table-user" class="size-9 rounded-full">
-                  <a href="javascript:void(0);" class="font-semibold text-default-800">Zara
-                    Raws</a>
-                </td>
-                <td class="px-4 py-2">(02) 75 150 655</td>
-                <td class="px-4 py-2">austin@dayrep.com</td>
-                <td class="px-4 py-2">Germany</td>
-                <td class="px-4 py-2">07/15/2024</td>
-              </tr>
-              <tr class="hover:bg-default-50">
-                <td class="px-4 py-2 flex items-center gap-2">
-                  <img src="assets/images/users/avatar-6.jpg" alt="table-user" class="size-9 rounded-full">
-                  <a href="javascript:void(0);" class="font-semibold text-default-800">Mike
-                    John</a>
-                </td>
-                <td class="px-4 py-2">798-4651-455</td>
-                <td class="px-4 py-2">mikejohn@jourrapide.com</td>
-                <td class="px-4 py-2">New York</td>
-                <td class="px-4 py-2">08/07/2024</td>
-              </tr>
-            </tbody>
-          </table>
+    <!-- Laporan Berdasarkan Klasifikasi dalam Bentuk Kartu -->
+    <div class="col-span-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Laporan Berdasarkan Klasifikasi</h4>
         </div>
-
-      </div> <!-- end card-body-->
-    </div> <!-- end card-->
-
-    <div class="card">
-      <div class="card-header">
-        <h4 class="card-title">Account Transactions</h4>
-        <p class="text-base text-default-500 mt-1">Transaction period from 21 July to 25 Aug</p>
-      </div>
-
-      <div class="card-bod">
-        <div class="overflow-x-auto">
-          <table class="table-auto w-full text-left border-collapse">
-            <thead class="bg-default-100 border-b border-default-200">
-              <tr>
-                <th class="px-4 py-2">Card Number</th>
-                <th class="px-4 py-2">Amount</th>
-                <th class="px-4 py-2">Card Type</th>
-                <th class="px-4 py-2">User Name</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-default-200">
-              <tr class="hover:bg-default-50">
-                <td class="px-4 py-2">
-                  <h5 class="text-base font-normal">4257 **** **** 7852</h5>
-                  <span class="text-sm text-default-600">11 April 2019</span>
-                </td>
-                <td class="px-4 py-2">
-                  <h5 class="text-base font-normal">$79.49</h5>
-                  <span class="text-sm text-default-600">Amount</span>
-                </td>
-                <td class="px-4 py-2">
-                  <h5 class="text-lg font-normal"><i class="fab fa-cc-visa"></i></h5>
-                  <span class="text-sm text-default-600">Card</span>
-                </td>
-                <td class="px-4 py-2">
-                  <h5 class="text-base font-normal">Helen Warren</h5>
-                  <span class="text-sm text-default-600">Pay</span>
-                </td>
-              </tr>
-              <tr class="hover:bg-default-50">
-                <td class="px-4 py-2">
-                  <h5 class="text-base font-normal">4265 **** **** 0025</h5>
-                  <span class="text-sm text-default-600">28 Jan 2019</span>
-                </td>
-                <td class="px-4 py-2">
-                  <h5 class="text-base font-normal">$1254.00</h5>
-                  <span class="text-sm text-default-600">Amount</span>
-                </td>
-                <td class="px-4 py-2">
-                  <h5 class="text-lg font-normal"><i class="fab fa-cc-stripe"></i></h5>
-                  <span class="text-sm text-default-600">Card</span>
-                </td>
-                <td class="px-4 py-2">
-                  <h5 class="text-base font-normal">Kayla Lambie</h5>
-                  <span class="text-sm text-default-600">Pay</span>
-                </td>
-              </tr>
-              <tr class="hover:bg-default-50">
-                <td class="px-4 py-2">
-                  <h5 class="text-base font-normal">5570 **** **** 8547</h5>
-                  <span class="text-sm text-default-600">08 Dec 2024</span>
-                </td>
-                <td class="px-4 py-2">
-                  <h5 class="text-base font-normal">$784.25</h5>
-                  <span class="text-sm text-default-600">Amount</span>
-                </td>
-                <td class="px-4 py-2">
-                  <h5 class="text-lg font-normal"><i class="fab fa-cc-amazon-pay"></i>
-                  </h5>
-                  <span class="text-sm text-default-600">Card</span>
-                </td>
-                <td class="px-4 py-2">
-                  <h5 class="text-base font-normal">Hugo Lavarack</h5>
-                  <span class="text-sm text-default-600">Pay</span>
-                </td>
-              </tr>
-              <tr class="hover:bg-default-50">
-                <td class="px-4 py-2">
-                  <h5 class="text-base font-normal">7845 **** **** 5214</h5>
-                  <span class="text-sm text-default-600">03 Dec 2024</span>
-                </td>
-                <td class="px-4 py-2">
-                  <h5 class="text-base font-normal">$485.24</h5>
-                  <span class="text-sm text-default-600">Amount</span>
-                </td>
-                <td class="px-4 py-2">
-                  <h5 class="text-lg font-normal"><i class="fab fa-cc-visa"></i></h5>
-                  <span class="text-sm text-default-600">Card</span>
-                </td>
-                <td class="px-4 py-2">
-                  <h5 class="text-base font-normal">Amber Scurry</h5>
-                  <span class="text-sm text-default-600">Pay</span>
-                </td>
-              </tr>
-              <tr class="hover:bg-default-50">
-                <td class="px-4 py-2">
-                  <h5 class="text-base font-normal">4257 **** **** 7852</h5>
-                  <span class="text-sm text-default-600">12 Nov 2024</span>
-                </td>
-                <td class="px-4 py-2">
-                  <h5 class="text-base font-normal">$8964.04</h5>
-                  <span class="text-sm text-default-600">Amount</span>
-                </td>
-                <td class="px-4 py-2">
-                  <h5 class="text-lg font-normal"><i class="fab fa-cc-visa"></i></h5>
-                  <span class="text-sm text-default-600">Card</span>
-                </td>
-                <td class="px-4 py-2">
-                  <h5 class="text-base font-normal">Caitlyn Gibney</h5>
-                  <span class="text-sm text-default-600">Pay</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="card-body">
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <div class="bg-green-50 p-4 rounded-lg shadow-md">
+              <div class="text-gray-500 text-sm">Pengaduan</div>
+              <div class="text-2xl font-bold">{{ $perJenis['Pengaduan'] ?? 0 }}</div>
+            </div>
+            <div class="bg-yellow-50 p-4 rounded-lg shadow-md">
+              <div class="text-gray-500 text-sm">Aspirasi</div>
+              <div class="text-2xl font-bold">{{ $perJenis['Aspirasi'] ?? 0 }}</div>
+            </div>
+            <div class="bg-purple-50 p-4 rounded-lg shadow-md">
+              <div class="text-gray-500 text-sm">Permintaan Informasi</div>
+              <div class="text-2xl font-bold">{{ $perJenis['Permintaan Informasi'] ?? 0 }}</div>
+            </div>
+          </div>
         </div>
-
-
-      </div> <!-- end card-body-->
+      </div>
     </div>
+
+    <!-- Laporan Berdasarkan Status dalam Bentuk Kartu -->
+    <div class="col-span-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Laporan Berdasarkan Status</h4>
+        </div>
+        <div class="card-body">
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            @foreach ($perStatus as $status => $jumlah)
+              <div class="bg-blue-50 p-4 rounded-lg shadow-md">
+                <div class="text-gray-500 text-sm">{{ $status }}</div>
+                <div class="text-2xl font-bold">{{ $jumlah }}</div>
+              </div>
+            @endforeach
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Daftar Laporan -->
+    <div class="col-span-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Daftar Laporan</h4>
+          <p class="text-base text-default-500 mt-1">Berikut adalah laporan yang masuk</p>
+        </div>
+        <div class="card-body">
+          <div class="overflow-x-auto">
+            <table class="table-auto w-full border-collapse">
+              <thead class="bg-default-100 border-b border-default-200">
+                <tr>
+                  <th class="px-4 py-2 text-left">Nama Pelapor</th>
+                  <th class="px-4 py-2 text-left">Jenis Laporan</th>
+                  <th class="px-4 py-2 text-left">Judul</th>
+                  <th class="px-4 py-2 text-left">Tanggal Laporan</th>
+                  <th class="px-4 py-2 text-left">Status</th>
+                  <th class="px-4 py-2 text-left">Aksi</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-default-200">
+                @foreach ($laporans as $laporan)
+                  <tr class="hover:bg-default-50">
+                    <td class="px-4 py-2">{{ $laporan['nama_pelapor'] }}</td>
+                    <td class="px-4 py-2">{{ $laporan['jenis_laporan'] }}</td>
+                    <td class="px-4 py-2">{{ $laporan['judul'] }}</td>
+                    <td class="px-4 py-2">{{ $laporan['tanggal_laporan'] }}</td>
+                    <td class="px-4 py-2">{{ $laporan['status'] }}</td>
+                    <td class="px-4 py-2 relative">
+                      <div class="relative inline-block text-left">
+                        <form method="POST" action="{{ route('laporan.updateStatus', $laporan['id']) }}">
+                          @csrf
+                          @method('PATCH')
+                          <button type="button"
+                            onclick="document.getElementById('dropdown-{{ $loop->index }}').classList.toggle('hidden')"
+                            class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-1 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                            Ubah Status
+                            <svg class="-mr-1 ml-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                              <path fill-rule="evenodd"
+                                d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 011.08 1.04l-4.25 4.25a.75.75 0 01-1.08 0L5.25 8.27a.75.75 0 01-.02-1.06z"
+                                clip-rule="evenodd" />
+                            </svg>
+                          </button>
+
+                          <div id="dropdown-{{ $loop->index }}"
+                            class="hidden origin-top-right absolute z-10 mt-2 w-44 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                            <div class="py-1 text-sm">
+                              <button type="submit" name="status" value="Baru"
+                                class="block w-full text-left px-4 py-2 bg-green-100 hover:bg-green-200 text-gray-800">Baru</button>
+                              <button type="submit" name="status" value="Dalam Proses"
+                                class="block w-full text-left px-4 py-2 bg-blue-300 hover:bg-blue-400 text-gray-800">Dalam
+                                Proses</button>
+                              <button type="submit" name="status" value="Selesai"
+                                class="block w-full text-left px-4 py-2 bg-red-100 hover:bg-red-200 text-gray-800">Selesai</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </td>
+
+                  </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- JavaScript Toggle -->
+    <script>
+      function toggleSelect(id) {
+        const form = document.getElementById('form-' + id);
+        form.style.display = form.style.display === 'none' ? 'block' : 'none';
+      }
+    </script>
 
   </div>
 @endsection
-@push('js')
-  <!-- Apexcharts js -->
-  <script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script>
-
-  <!-- Morris Js Chart -->
-  <script src="{{ asset('assets/libs/morris.js/morris.min.js') }}"></script>
-
-  <script src="{{ asset('assets/libs/raphael/raphael.min.js') }}"></script>
-
-  <!-- Dashboard Project Page js -->
-  <script src="{{ asset('assets/js/pages/dashboard.js') }}"></script>
-@endpush
