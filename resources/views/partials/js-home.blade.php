@@ -4,7 +4,7 @@
 {{-- Particle JS --}}
 <script src="{{ asset('assets/particles.js') }}"></script>
 <script>
-  particlesJS.load('particles-js', 'assets/particles.json', function() {
+  particlesJS.load('particles-js', '/assets/particles.json', function() {
     console.log('callback - particles.js config loaded');
   });
 </script>
@@ -83,4 +83,21 @@
       loading.classList.add('hidden');
     }
   }
+
+  // Alert
+  const alertBox = document.getElementById('alert-box');
+
+  function closeAlert() {
+    alertBox.classList.remove('show');
+    setTimeout(() => alertBox.style.display = 'none', 500); // tunggu animasi keluar
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    alertBox.classList.add('show');
+
+    // Otomatis tutup setelah 10 detik
+    setTimeout(() => {
+      closeAlert();
+    }, 7000);
+  });
 </script>

@@ -1,29 +1,29 @@
 <!-- Topbar Start -->
-<header class="app-header sticky top-0 z-50 min-h-topbar flex items-center bg-white">
-  <div class="px-6 w-full flex items-center justify-between gap-4">
+<header class="sticky top-0 z-50 flex items-center bg-white app-header min-h-topbar">
+  <div class="flex items-center justify-between w-full gap-4 px-6">
     <div class="flex items-center gap-5">
       <!-- Sidenav Menu Toggle Button -->
       <button
-        class="flex items-center text-default-500 rounded-full cursor-pointer p-2 bg-white border border-default-200 hover:bg-primary/15 hover:text-primary hover:border-primary/5 transition-all"
+        class="flex items-center p-2 transition-all bg-white border rounded-full cursor-pointer text-default-500 border-default-200 hover:bg-primary/15 hover:text-primary hover:border-primary/5"
         data-hs-overlay="#app-menu" aria-label="Toggle navigation">
-        <i class="i-lucide-align-left text-2xl"></i>
+        <i class="text-2xl i-lucide-align-left"></i>
       </button>
 
       <!-- Topbar Brand Logo -->
-      <a href="index.html" class="md:hidden flex">
+      <a href="index.html" class="flex md:hidden">
         <img src="{{ asset('assets/images/logo-sm.png') }}" class="h-5" alt="Small logo">
       </a>
 
       <!-- Topbar Search -->
-      <div class="md:flex hidden items-center relative">
-        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-          <i class="i-tabler-search text-base"></i>
+      <div class="relative items-center hidden md:flex">
+        <div class="absolute inset-y-0 flex items-center pointer-events-none start-0 ps-3">
+          <i class="text-base i-tabler-search"></i>
         </div>
         <input type="search"
-          class="form-input px-10 rounded-lg  bg-default-500/10 border-transparent focus:border-transparent w-80"
+          class="px-10 border-transparent rounded-lg form-input bg-default-500/10 focus:border-transparent w-80"
           placeholder="Search...">
-        <button type="button" class="absolute inset-y-0 end-0 flex items-center pe-3">
-          <i class="i-tabler-microphone text-base hover:text-black"></i>
+        <button type="button" class="absolute inset-y-0 flex items-center end-0 pe-3">
+          <i class="text-base i-tabler-microphone hover:text-black"></i>
         </button>
       </div>
     </div>
@@ -32,8 +32,8 @@
       <!-- Language Dropdown Button -->
       <div class="hs-dropdown relative inline-flex [--placement:bottom-right]">
         <button type="button"
-          class="hs-dropdown-toggle inline-flex items-center p-2 rounded-full bg-white border border-default-200 hover:bg-primary/15 hover:text-primary transition-all">
-          <i class="i-lucide-globe text-2xl"></i>
+          class="inline-flex items-center p-2 transition-all bg-white border rounded-full hs-dropdown-toggle border-default-200 hover:bg-primary/15 hover:text-primary">
+          <i class="text-2xl i-lucide-globe"></i>
         </button>
 
         <div
@@ -70,14 +70,14 @@
       <!-- Notification Dropdown Button -->
       <div class="hs-dropdown relative inline-flex [--placement:bottom-right]">
         <button type="button"
-          class="hs-dropdown-toggle inline-flex items-center p-2 rounded-full bg-white border border-default-200 hover:bg-primary/15 hover:text-primary transition-all">
-          <i class="i-lucide-bell text-2xl"></i>
+          class="inline-flex items-center p-2 transition-all bg-white border rounded-full hs-dropdown-toggle border-default-200 hover:bg-primary/15 hover:text-primary">
+          <i class="text-2xl i-lucide-bell"></i>
         </button>
 
         <!-- Dropdown menu -->
         <div
           class="hs-dropdown-menu duration mt-2 w-full max-w-sm rounded-lg border border-default-200 bg-white opacity-0 shadow-md transition-[opacity,margin] hs-dropdown-open:opacity-100 hidden">
-          <div class="block px-4 py-2 font-medium text-center text-default-700 rounded-t-lg bg-default-50">
+          <div class="block px-4 py-2 font-medium text-center rounded-t-lg text-default-700 bg-default-50">
             Notifications
           </div>
 
@@ -87,8 +87,8 @@
                 <img class="rounded-full w-11 h-11" src="{{ asset('assets/images/users/avatar-6.jpg') }}"
                   alt="Alex image">
                 <div
-                  class="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-green-500 border border-white rounded-full">
-                  <i class="i-tabler-alert-circle text-white w-4 h-4"></i>
+                  class="absolute flex items-center justify-center w-5 h-5 -mt-5 bg-green-500 border border-white rounded-full ms-6">
+                  <i class="w-4 h-4 text-white i-tabler-alert-circle"></i>
                 </div>
               </div>
               <div class="w-full ps-3">
@@ -106,8 +106,8 @@
                 <img class="rounded-full w-11 h-11" src="{{ asset('assets/images/users/avatar-7.jpg') }}"
                   alt="Sarah image">
                 <div
-                  class="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-primary-600 border border-white rounded-full">
-                  <i class="i-tabler-file-text text-white w-4 h-4"></i>
+                  class="absolute flex items-center justify-center w-5 h-5 -mt-5 border border-white rounded-full ms-6 bg-primary-600">
+                  <i class="w-4 h-4 text-white i-tabler-file-text"></i>
                 </div>
               </div>
               <div class="w-full ps-3">
@@ -124,8 +124,8 @@
                 <img class="rounded-full w-11 h-11" src="{{ asset('assets/images/users/avatar-8.jpg') }}"
                   alt="Michael image">
                 <div
-                  class="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-purple-500 border border-white rounded-full">
-                  <i class="i-tabler-message text-white w-4 h-4"></i>
+                  class="absolute flex items-center justify-center w-5 h-5 -mt-5 bg-purple-500 border border-white rounded-full ms-6">
+                  <i class="w-4 h-4 text-white i-tabler-message"></i>
                 </div>
               </div>
               <div class="w-full ps-3">
@@ -142,8 +142,8 @@
                 <img class="rounded-full w-11 h-11" src="{{ asset('assets/images/users/avatar-9.jpg') }}"
                   alt="Emma image">
                 <div
-                  class="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-pink-500 border border-white rounded-full">
-                  <i class="i-tabler-heart text-white w-4 h-4"></i>
+                  class="absolute flex items-center justify-center w-5 h-5 -mt-5 bg-pink-500 border border-white rounded-full ms-6">
+                  <i class="w-4 h-4 text-white i-tabler-heart"></i>
                 </div>
               </div>
               <div class="w-full ps-3">
@@ -158,7 +158,7 @@
 
 
           <a href="#"
-            class="block py-2 text-sm font-medium text-center text-default-900 rounded-b-lg bg-default-50 hover:bg-default-100">
+            class="block py-2 text-sm font-medium text-center rounded-b-lg text-default-900 bg-default-50 hover:bg-default-100">
             <div class="inline-flex items-center ">
               <i class="i-tabler-eye size-4 text-default-500"></i>
               View all
@@ -168,9 +168,9 @@
       </div>
 
       <!-- Fullscreen Toggle Button -->
-      <div class="md:flex hidden">
+      <div class="hidden md:flex">
         <button data-toggle="fullscreen" type="button"
-          class="p-2 rounded-full bg-white border border-default-200 hover:bg-primary/15 hover:text-primary transition-all">
+          class="p-2 transition-all bg-white border rounded-full border-default-200 hover:bg-primary/15 hover:text-primary">
           <span class="sr-only">Fullscreen Mode</span>
           <span class="flex items-center justify-center size-6">
             <i class="i-lucide-maximize text-2xl flex group-[-fullscreen]:hidden"></i>
@@ -183,35 +183,36 @@
       <div class="relative">
         <div class="hs-dropdown relative inline-flex [--placement:bottom-right]">
           <button type="button" class="hs-dropdown-toggle">
-            <img src="{{ asset('assets/images/users/avatar-8.jpg') }}" alt="user-image" class="rounded-full h-10">
+            <img src="https://ui-avatars.com/api/?name={{ Auth::user()->name }}&background=003b32&color=FFF"
+              alt="user-image" class="h-10 rounded-full">
           </button>
           <div
             class="hs-dropdown-menu duration mt-2 min-w-48 rounded-lg border border-default-200 bg-white p-2 opacity-0 shadow-md transition-[opacity,margin] hs-dropdown-open:opacity-100 hidden">
-            <a class="flex items-center py-2 px-3 rounded-md text-sm text-default-800 hover:bg-default-100"
+            <a class="flex items-center px-3 py-2 text-sm rounded-md text-default-800 hover:bg-default-100"
               href="#">
               Profile
             </a>
-            <a class="flex items-center py-2 px-3 rounded-md text-sm text-default-800 hover:bg-default-100"
+            <a class="flex items-center px-3 py-2 text-sm rounded-md text-default-800 hover:bg-default-100"
               href="#">
               Feed
             </a>
-            <a class="flex items-center py-2 px-3 rounded-md text-sm text-default-800 hover:bg-default-100"
+            <a class="flex items-center px-3 py-2 text-sm rounded-md text-default-800 hover:bg-default-100"
               href="#">
               Analytics
             </a>
-            <a class="flex items-center py-2 px-3 rounded-md text-sm text-default-800 hover:bg-default-100"
+            <a class="flex items-center px-3 py-2 text-sm rounded-md text-default-800 hover:bg-default-100"
               href="#">
               Settings
             </a>
-            <a class="flex items-center py-2 px-3 rounded-md text-sm text-default-800 hover:bg-default-100"
+            <a class="flex items-center px-3 py-2 text-sm rounded-md text-default-800 hover:bg-default-100"
               href="#">
               Support
             </a>
 
             <hr class="my-2 -mx-2">
 
-            <a class="flex items-center py-2 px-3 rounded-md text-sm text-default-800 hover:bg-default-100"
-              href="#">
+            <a class="flex items-center px-3 py-2 text-sm rounded-md text-default-800 hover:bg-default-100"
+              href="{{ route('admin.logout') }}">
               Log Out
             </a>
           </div>

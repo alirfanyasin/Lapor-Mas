@@ -15,11 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('kategori');
             $table->string('nama');
+            $table->string('telepon');
             $table->string('judul');
             $table->mediumText('laporan');
             $table->date('tanggal');
             $table->string('lokasi');
             $table->string('lampiran')->nullable();
+            $table->enum('status', ['Baru', 'Proses', 'Ditolak', 'selesai'])->default('Baru');
             $table->timestamps();
         });
     }
