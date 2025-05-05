@@ -91,16 +91,25 @@
                   <th class="px-4 py-2 text-left">Tanggal Laporan</th>
                   <th class="px-4 py-2 text-left">Status</th>
                   <th class="px-4 py-2 text-left">Aksi</th>
+                  <th class="px-4 py-2 text-left">Feedback</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-default-200">
                 @foreach ($laporans as $laporan)
+                  @php
+                    // Siapkan nomor WA dan pesan default
+                    $noHp = preg_replace('/\D/', '', $laporan->telepon);
+                    $message = "Halo {$laporan->nama}, terima kasih atas laporan Anda. Mohon tunggu, kami akan menindaklanjuti dalam 1×24 jam.";
+                    $msgEncoded = urlencode($message);
+                  @endphp
                   <tr class="hover:bg-default-50">
                     <td class="px-4 py-2">{{ $laporan->nama }}</td>
                     <td class="px-4 py-2">{{ $laporan->kategori }}</td>
                     <td class="px-4 py-2">{{ $laporan->judul }}</td>
                     <td class="px-4 py-2">{{ $laporan->tanggal }}</td>
                     <td class="px-4 py-2">{{ $laporan->status }}</td>
+
+                    {{-- Kolom Aksi: Ubah Status --}}
                     <td class="relative px-4 py-2">
                       <div class="relative inline-block text-left">
                         <form method="POST" action="{{ route('laporan.updateStatus', $laporan->id) }}">
@@ -108,7 +117,7 @@
                           @method('PATCH')
                           <button type="button"
                             onclick="document.getElementById('dropdown-{{ $loop->index }}').classList.toggle('hidden')"
-                            class="inline-flex justify-center w-full px-4 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50">
+                            class="inline-flex justify-center px-4 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50">
                             Ubah Status
                             <svg class="w-5 h-5 ml-2 -mr-1" viewBox="0 0 20 20" fill="currentColor">
                               <path fill-rule="evenodd"
@@ -116,23 +125,34 @@
                                 clip-rule="evenodd" />
                             </svg>
                           </button>
-
                           <div id="dropdown-{{ $loop->index }}"
                             class="absolute z-10 hidden mt-2 origin-top-right bg-white rounded-md shadow-lg w-44 ring-1 ring-black ring-opacity-5">
                             <div class="py-1 text-sm">
                               <button type="submit" name="status" value="Baru"
-                                class="block w-full px-4 py-2 text-left text-gray-800 bg-green-100 hover:bg-green-200">Baru</button>
+                                class="block w-full px-4 py-2 text-left text-gray-800 bg-green-100 hover:bg-green-200">
+                                Baru
+                              </button>
                               <button type="submit" name="status" value="Dalam Proses"
-                                class="block w-full px-4 py-2 text-left text-gray-800 bg-blue-300 hover:bg-blue-400">Dalam
-                                Proses</button>
+                                class="block w-full px-4 py-2 text-left text-gray-800 bg-blue-300 hover:bg-blue-400">
+                                Dalam Proses
+                              </button>
                               <button type="submit" name="status" value="Selesai"
-                                class="block w-full px-4 py-2 text-left text-gray-800 bg-red-100 hover:bg-red-200">Selesai</button>
+                                class="block w-full px-4 py-2 text-left text-gray-800 bg-red-100 hover:bg-red-200">
+                                Selesai
+                              </button>
                             </div>
                           </div>
                         </form>
                       </div>
                     </td>
 
+                    {{-- Kolom Feedback: Chat via WhatsApp --}}
+                    <td class="px-4 py-2">
+                      <a href="https://wa.me/{{ $noHp }}?text={{ $msgEncoded }}" target="_blank"
+                        class="inline-block px-4 py-1 text-sm font-medium text-white bg-green-500 rounded-md hover:bg-green-600">
+                        Chat via WhatsApp
+                      </a>
+                    </td>
                   </tr>
                 @endforeach
               </tbody>
@@ -141,7 +161,6 @@
         </div>
       </div>
     </div>
-
 
     <!-- JavaScript Toggle -->
     <script>
