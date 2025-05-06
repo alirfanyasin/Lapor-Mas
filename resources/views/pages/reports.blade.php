@@ -27,6 +27,8 @@
                   <th scope="col" class="px-6 py-3 text-sm text-start text-default-500">
                     Aksi</th>
                   <th scope="col" class="px-6 py-3 text-sm text-start text-default-500">
+                    Detail</th>
+                  <th scope="col" class="px-6 py-3 text-sm text-start text-default-500">
                     Feedback</th>
                 </tr>
               </thead>
@@ -58,8 +60,9 @@
                                 clip-rule="evenodd" />
                             </svg>
                           </button>
+                          {{-- <div class="relative"> --}}
                           <div id="dropdown-{{ $loop->index }}"
-                            class="absolute z-10 hidden mt-2 origin-top-right bg-white rounded-md shadow-lg w-44 ring-1 ring-black ring-opacity-5">
+                            class="relative z-10 hidden mt-2 origin-top-right bg-white rounded-md shadow-lg w-44 ring-1 ring-black ring-opacity-5">
                             <div class="py-1 text-sm">
                               <button type="submit" name="status" value="Baru"
                                 class="block w-full px-4 py-2 text-left text-gray-800 bg-green-100 hover:bg-green-200">
@@ -74,16 +77,20 @@
                                 Selesai
                               </button>
                             </div>
+                            {{-- </div> --}}
                           </div>
                         </form>
                       </div>
-
-                      <a href="{{ route('report.show', $report->id) }}"
-                        class="px-2 py-1 text-white bg-green-500 rounded-md">Detail</a>
-
                     </td>
 
-                    {{-- Kolom Feedback: Chat via WhatsApp --}}
+                    <td class="px-6 py-4 text-sm whitespace-nowrap text-default-800">
+                      <a href="{{ route('report.show', $report->id) }}"
+                        class="flex items-center px-2 py-1 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600">
+                        <iconify-icon icon="ic:twotone-info" width="24" height="24"></iconify-icon>
+                        <small class="ms-1">lihat Detail</small>
+                      </a>
+
+                      {{-- Kolom Feedback: Chat via WhatsApp --}}
                     <td class="px-6 py-4 text-sm whitespace-nowrap text-default-800">
                       <a href="https://wa.me/{{ $report->telepon }}?text={{ urlencode('Halo ' . $report->nama . ', terima kasih atas laporan Anda. Mohon tunggu, kami akan menindaklanjuti dalam 1x24 jam.') }}"
                         target="_blank"
