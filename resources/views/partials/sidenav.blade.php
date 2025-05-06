@@ -39,7 +39,7 @@
             <ul class="mt-1 space-y-1">
               <li class="menu-item">
                 <a class="flex items-center gap-x-3.5 rounded-md px-3 py-1.5 text-sm font-medium text-default-400 transition-all hover:bg-default-100/5"
-                  href="ui-accordion.html">
+                  href="{{ route('report.index') }}">
                   <i class="menu-dot"></i>
                   Laporan Masuk
                 </a>

@@ -51,14 +51,14 @@ class ReportController extends Controller
             $validatedData['lampiran'] = $filename;
         }
 
-
-        Report::create($validatedData);
-
-        Notification::create([
+        $notif = Notification::create([
             'name' => $validatedData['nama'],
             'message' => 'Laporan baru dari ' . '<strong>' . $validatedData['nama'] . '</strong>' . ': ' . $validatedData['judul'],
         ]);
 
+        $validatedData['notification_id'] = $notif->id;
+
+        Report::create($validatedData);
         return redirect()->back()->with('success', 'Laporan berhasil dikirim!');
     }
 }

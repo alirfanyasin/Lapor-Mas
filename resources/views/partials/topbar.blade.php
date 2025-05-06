@@ -93,7 +93,7 @@
 
           <div class="divide-y divide-default-100">
             @foreach ($notifications as $notif)
-              <a href="#" class="flex px-4 py-3 hover:bg-default-100">
+              <a href="{{ route('report.show.notification', $notif->id) }}" class="flex px-4 py-3 hover:bg-default-100">
                 <div class="flex-shrink-0">
                   <img class="rounded-full w-11 h-11"
                     src="https://ui-avatars.com/api/?name={{ $notif->name }}&background=random&color=FFF"

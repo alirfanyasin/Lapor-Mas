@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('lokasi');
             $table->string('lampiran')->nullable();
             $table->enum('status', ['Baru', 'Proses', 'Ditolak', 'Selesai'])->default('Baru');
+            $table->foreignId('notification_id')->nullable()->constrained('notifications')->onDelete('cascade');
             $table->timestamps();
         });
     }

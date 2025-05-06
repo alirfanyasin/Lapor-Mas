@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Notification extends Model
 {
@@ -16,8 +18,9 @@ class Notification extends Model
         'is_read' => 'boolean',
     ];
 
-    public function markAsRead()
+
+    public function report(): HasOne
     {
-        $this->update(['is_read' => true]);
+        return $this->hasOne(Report::class);
     }
 }

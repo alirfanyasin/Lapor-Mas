@@ -10,33 +10,33 @@ class AdminReportController extends Controller
 {
     public function index()
     {
-        $laporans = Report::all();
-        $today = now()->toDateString();
-        $thisWeek = now()->startOfWeek();
-        $thisMonth = now()->startOfMonth();
-
-        $masukHariIni = $laporans->where('tanggal', $today)->count();
-        $masukMingguIni = $laporans->where('tanggal', '>=', $thisWeek)->count();
-        $masukBulanIni = $laporans->where('tanggal', '>=', $thisMonth)->count();
         $notifCount = Notification::where('is_read', false)->count();
         $notifications = Notification::where('is_read', false)->orderBy('id', 'DESC')->get();
+        $reports = Report::all();
 
         $data = [
-            'title'           => 'Dashboard',
-            'laporans'        => $laporans,
-            'total'           => $laporans->count(),
-            'masukHariIni'    => $masukHariIni,
-            'masukMingguIni'  => $masukMingguIni,
-            'masukBulanIni'   => $masukBulanIni,
-            'perJenis'        => $laporans->groupBy('kategori')->map->count(),
-            'perStatus'       => $laporans->groupBy('status')->map->count(),
+            'title' => 'Laporan',
             'notifCount'      => $notifCount,
-            'notifications'   => $notifications
+            'notifications'   => $notifications,
+            'reports' => $reports,
         ];
-
-        return view('pages.index', $data);
+        return view('pages.reports', $data);
     }
 
+    public function show($id)
+    {
+        $notifCount = Notification::where('is_read', false)->count();
+        $notifications = Notification::where('is_read', false)->orderBy('id', 'DESC')->get();
+        $laporan = Report::findOrFail($id);
+
+        $data = [
+            'title' => 'Detail Laporan',
+            'notifCount'      => $notifCount,
+            'notifications'   => $notifications,
+            'data' => $laporan,
+        ];
+        return view('pages.report-detail', $data);
+    }
 
     public function updateStatus(Request $request, $id)
     {
@@ -47,10 +47,10 @@ class AdminReportController extends Controller
         $laporan = Report::findOrFail($id);
         $laporan->update($validatedData);
 
-        Notification::create([
-            'name' => 'Admin',
-            'message' => 'Laporan dari ' . '<strong>' . $laporan->nama . '</strong>' . ': ' . $laporan->judul . ' telah diperbarui statusnya menjadi ' . $validatedData['status'],
-        ]);
+        // Notification::create([
+        //     'name' => 'Admin',
+        //     'message' => 'Laporan dari ' . '<strong>' . $laporan->nama . '</strong>' . ': ' . $laporan->judul . ' telah diperbarui statusnya menjadi ' . $validatedData['status'],
+        // ]);
 
         return redirect()->back()->with('success', 'Status laporan berhasil diperbarui.');
     }
