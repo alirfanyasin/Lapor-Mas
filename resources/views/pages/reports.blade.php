@@ -20,13 +20,13 @@
                   <th scope="col" class="px-6 py-3 text-sm text-start text-default-500">
                     Judul
                   </th>
-                  <th scope="col" class="px-6 py-3 text-sm text-end text-default-500">
+                  <th scope="col" class="px-6 py-3 text-sm text-start text-default-500">
                     Tanggal</th>
-                  <th scope="col" class="px-6 py-3 text-sm text-end text-default-500">
+                  <th scope="col" class="px-6 py-3 text-sm text-start text-default-500">
                     Status</th>
-                  <th scope="col" class="px-6 py-3 text-sm text-end text-default-500">
+                  <th scope="col" class="px-6 py-3 text-sm text-start text-default-500">
                     Aksi</th>
-                  <th scope="col" class="px-6 py-3 text-sm text-end text-default-500">
+                  <th scope="col" class="px-6 py-3 text-sm text-start text-default-500">
                     Feedback</th>
                 </tr>
               </thead>
@@ -78,7 +78,8 @@
                         </form>
                       </div>
 
-                      <a href="{{ route('report.show', $report->id) }}" class="px-2 py-1 rounded-lg">Detail</a>
+                      <a href="{{ route('report.show', $report->id) }}"
+                        class="px-2 py-1 text-white bg-green-500 rounded-md">Detail</a>
 
                     </td>
 
