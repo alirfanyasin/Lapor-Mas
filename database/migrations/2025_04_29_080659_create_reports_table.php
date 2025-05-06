@@ -21,7 +21,7 @@ return new class extends Migration
             $table->date('tanggal');
             $table->string('lokasi');
             $table->string('lampiran')->nullable();
-            $table->enum('status', ['Baru', 'Proses', 'Ditolak', 'selesai'])->default('Baru');
+            $table->enum('status', ['Baru', 'Proses', 'Ditolak', 'Selesai'])->default('Baru');
             $table->timestamps();
         });
     }

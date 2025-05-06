@@ -3,15 +3,15 @@
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminAuthController;
-use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\AdminReportController;
 
 
 
 
 Route::prefix('app')->middleware('auth')->group(function () {
 
-    Route::get('/dashboard', [LaporanController::class, 'index'])->name('dashboard');
-    Route::patch('/laporan/{id}/status', [LaporanController::class, 'updateStatus'])->name('laporan.updateStatus');
+    Route::get('/dashboard', [AdminReportController::class, 'index'])->name('dashboard');
+    Route::patch('/laporan/{id}/status', [AdminReportController::class, 'updateStatus'])->name('laporan.updateStatus');
     // Logout admin
     Route::get('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 });

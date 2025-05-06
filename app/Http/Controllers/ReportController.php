@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use App\Models\Report;
 use Illuminate\Http\Request;
 
@@ -29,6 +30,8 @@ class ReportController extends Controller
             'lampiran' => 'nullable|file|mimes:pdf,jpeg,png,jpg|max:2048',
         ]);
 
+        $validatedData['status'] = 'Baru';
+
         $telepon = preg_replace('/[^0-9+]/', '', $validatedData['telepon']);
 
         if (substr($telepon, 0, 3) === '+62') {
@@ -50,6 +53,12 @@ class ReportController extends Controller
 
 
         Report::create($validatedData);
+
+        Notification::create([
+            'name' => $validatedData['nama'],
+            'message' => 'Laporan baru dari ' . '<strong>' . $validatedData['nama'] . '</strong>' . ': ' . $validatedData['judul'],
+        ]);
+
         return redirect()->back()->with('success', 'Laporan berhasil dikirim!');
     }
 }

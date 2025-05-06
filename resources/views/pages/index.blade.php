@@ -132,9 +132,13 @@
                                 class="block w-full px-4 py-2 text-left text-gray-800 bg-green-100 hover:bg-green-200">
                                 Baru
                               </button>
-                              <button type="submit" name="status" value="Dalam Proses"
+                              <button type="submit" name="status" value="Proses"
                                 class="block w-full px-4 py-2 text-left text-gray-800 bg-blue-300 hover:bg-blue-400">
                                 Dalam Proses
+                              </button>
+                              <button type="submit" name="status" value="Ditolak"
+                                class="block w-full px-4 py-2 text-left text-gray-800 bg-blue-300 hover:bg-blue-400">
+                                Tolak
                               </button>
                               <button type="submit" name="status" value="Selesai"
                                 class="block w-full px-4 py-2 text-left text-gray-800 bg-red-100 hover:bg-red-200">

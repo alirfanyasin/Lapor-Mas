@@ -30,7 +30,7 @@
 
     <div class="flex items-center gap-5">
       <!-- Language Dropdown Button -->
-      <div class="hs-dropdown relative inline-flex [--placement:bottom-right]">
+      {{-- <div class="hs-dropdown relative inline-flex [--placement:bottom-right]">
         <button type="button"
           class="inline-flex items-center p-2 transition-all bg-white border rounded-full hs-dropdown-toggle border-default-200 hover:bg-primary/15 hover:text-primary">
           <i class="text-2xl i-lucide-globe"></i>
@@ -65,14 +65,24 @@
             <span class="align-middle">Russian</span>
           </a>
         </div>
-      </div>
+      </div> --}}
 
       <!-- Notification Dropdown Button -->
       <div class="hs-dropdown relative inline-flex [--placement:bottom-right]">
-        <button type="button"
-          class="inline-flex items-center p-2 transition-all bg-white border rounded-full hs-dropdown-toggle border-default-200 hover:bg-primary/15 hover:text-primary">
-          <i class="text-2xl i-lucide-bell"></i>
-        </button>
+        <div class="relative">
+          <button type="button"
+            class="inline-flex items-center p-2 transition-all bg-white border rounded-full hs-dropdown-toggle border-default-200 hover:bg-primary/15 hover:text-primary">
+            <i class="text-2xl i-lucide-bell"></i>
+          </button>
+
+          @if ($notifCount > 0)
+            <div
+              class="absolute top-0 right-0 flex items-center justify-center w-5 h-5 text-xs font-semibold text-white translate-x-1/2 -translate-y-1/2 bg-red-500 rounded-full">
+              {{ $notifCount }}
+            </div>
+          @endif
+
+        </div>
 
         <!-- Dropdown menu -->
         <div
@@ -82,78 +92,21 @@
           </div>
 
           <div class="divide-y divide-default-100">
-            <a href="#" class="flex px-4 py-3 hover:bg-default-100">
-              <div class="flex-shrink-0">
-                <img class="rounded-full w-11 h-11" src="{{ asset('assets/images/users/avatar-6.jpg') }}"
-                  alt="Alex image">
-                <div
-                  class="absolute flex items-center justify-center w-5 h-5 -mt-5 bg-green-500 border border-white rounded-full ms-6">
-                  <i class="w-4 h-4 text-white i-tabler-alert-circle"></i>
+            @foreach ($notifications as $notif)
+              <a href="#" class="flex px-4 py-3 hover:bg-default-100">
+                <div class="flex-shrink-0">
+                  <img class="rounded-full w-11 h-11"
+                    src="https://ui-avatars.com/api/?name={{ $notif->name }}&background=random&color=FFF"
+                    alt="Alex image">
                 </div>
-              </div>
-              <div class="w-full ps-3">
-                <div class="text-default-500 text-sm mb-1.5">
-                  New alert from <span class="font-semibold text-default-900">Alex
-                    Johnson</span>:
-                  "System needs attention, check logs."
+                <div class="w-full ps-3">
+                  <div class="text-default-500 text-sm mb-1.5">
+                    {!! $notif->message !!}
+                  </div>
+                  <div class="text-xs text-primary">{{ $notif->created_at->diffForHumans() }}</div>
                 </div>
-                <div class="text-xs text-primary">2 minutes ago</div>
-              </div>
-            </a>
-
-            <a href="#" class="flex px-4 py-3 hover:bg-default-100">
-              <div class="flex-shrink-0">
-                <img class="rounded-full w-11 h-11" src="{{ asset('assets/images/users/avatar-7.jpg') }}"
-                  alt="Sarah image">
-                <div
-                  class="absolute flex items-center justify-center w-5 h-5 -mt-5 border border-white rounded-full ms-6 bg-primary-600">
-                  <i class="w-4 h-4 text-white i-tabler-file-text"></i>
-                </div>
-              </div>
-              <div class="w-full ps-3">
-                <div class="text-default-500 text-sm mb-1.5">
-                  <span class="font-semibold text-default-900">Sarah Lee</span> shared a
-                  document with you.
-                </div>
-                <div class="text-xs text-primary">5 minutes ago</div>
-              </div>
-            </a>
-
-            <a href="#" class="flex px-4 py-3 hover:bg-default-100">
-              <div class="flex-shrink-0">
-                <img class="rounded-full w-11 h-11" src="{{ asset('assets/images/users/avatar-8.jpg') }}"
-                  alt="Michael image">
-                <div
-                  class="absolute flex items-center justify-center w-5 h-5 -mt-5 bg-purple-500 border border-white rounded-full ms-6">
-                  <i class="w-4 h-4 text-white i-tabler-message"></i>
-                </div>
-              </div>
-              <div class="w-full ps-3">
-                <div class="text-default-500 text-sm mb-1.5">
-                  <span class="font-semibold text-default-900">Michael Clark</span> replied
-                  to your comment.
-                </div>
-                <div class="text-xs text-primary">15 minutes ago</div>
-              </div>
-            </a>
-
-            <a href="#" class="flex px-4 py-3 hover:bg-default-100">
-              <div class="flex-shrink-0">
-                <img class="rounded-full w-11 h-11" src="{{ asset('assets/images/users/avatar-9.jpg') }}"
-                  alt="Emma image">
-                <div
-                  class="absolute flex items-center justify-center w-5 h-5 -mt-5 bg-pink-500 border border-white rounded-full ms-6">
-                  <i class="w-4 h-4 text-white i-tabler-heart"></i>
-                </div>
-              </div>
-              <div class="w-full ps-3">
-                <div class="text-default-500 text-sm mb-1.5">
-                  <span class="font-semibold text-default-900">Emma Stone</span> reacted to
-                  your post.
-                </div>
-                <div class="text-xs text-primary">30 minutes ago</div>
-              </div>
-            </a>
+              </a>
+            @endforeach
           </div>
 
 
@@ -194,21 +147,8 @@
             </a>
             <a class="flex items-center px-3 py-2 text-sm rounded-md text-default-800 hover:bg-default-100"
               href="#">
-              Feed
-            </a>
-            <a class="flex items-center px-3 py-2 text-sm rounded-md text-default-800 hover:bg-default-100"
-              href="#">
-              Analytics
-            </a>
-            <a class="flex items-center px-3 py-2 text-sm rounded-md text-default-800 hover:bg-default-100"
-              href="#">
               Settings
             </a>
-            <a class="flex items-center px-3 py-2 text-sm rounded-md text-default-800 hover:bg-default-100"
-              href="#">
-              Support
-            </a>
-
             <hr class="my-2 -mx-2">
 
             <a class="flex items-center px-3 py-2 text-sm rounded-md text-default-800 hover:bg-default-100"
