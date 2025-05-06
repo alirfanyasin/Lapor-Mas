@@ -5,11 +5,11 @@
 
   <div class="flex flex-col h-full">
     <!-- Sidenav Logo -->
-    <div class="sticky top-0 flex items-center justify-center px-6 h-topbar">
+    {{-- <div class="sticky top-0 flex items-center justify-center px-6 h-topbar">
       <a href="index.html">
         <img src="{{ asset('assets/images/logo-light.png') }}" alt="logo" class="flex h-5">
       </a>
-    </div>
+    </div> --}}
 
     <div class="p-4 h-[calc(100%-theme('spacing.topbar'))] flex-grow" data-simplebar>
       <!-- Menu -->

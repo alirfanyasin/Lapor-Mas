@@ -15,7 +15,7 @@
       </a>
 
       <!-- Topbar Search -->
-      <div class="relative items-center hidden md:flex">
+      {{-- <div class="relative items-center hidden md:flex">
         <div class="absolute inset-y-0 flex items-center pointer-events-none start-0 ps-3">
           <i class="text-base i-tabler-search"></i>
         </div>
@@ -25,7 +25,7 @@
         <button type="button" class="absolute inset-y-0 flex items-center end-0 pe-3">
           <i class="text-base i-tabler-microphone hover:text-black"></i>
         </button>
-      </div>
+      </div> --}}
     </div>
 
     <div class="flex items-center gap-5">
@@ -141,15 +141,15 @@
           </button>
           <div
             class="hs-dropdown-menu duration mt-2 min-w-48 rounded-lg border border-default-200 bg-white p-2 opacity-0 shadow-md transition-[opacity,margin] hs-dropdown-open:opacity-100 hidden">
-            <a class="flex items-center px-3 py-2 text-sm rounded-md text-default-800 hover:bg-default-100"
+            {{-- <a class="flex items-center px-3 py-2 text-sm rounded-md text-default-800 hover:bg-default-100"
               href="#">
               Profile
             </a>
             <a class="flex items-center px-3 py-2 text-sm rounded-md text-default-800 hover:bg-default-100"
               href="#">
               Settings
-            </a>
-            <hr class="my-2 -mx-2">
+            </a> --}}
+            {{-- <hr class="my-2 -mx-2"> --}}
 
             <a class="flex items-center px-3 py-2 text-sm rounded-md text-default-800 hover:bg-default-100"
               href="{{ route('admin.logout') }}">
