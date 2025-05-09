@@ -12,7 +12,7 @@ class AdminReportController extends Controller
     {
         $notifCount = Notification::where('is_read', false)->count();
         $notifications = Notification::where('is_read', false)->orderBy('id', 'DESC')->get();
-        $reports = Report::all();
+        $reports = Report::whereNot('status', 'selesai')->orderBy('id', 'DESC')->get();
 
         $data = [
             'title' => 'Laporan',

@@ -4,6 +4,7 @@ use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\AdminReportArchiveController;
 use App\Http\Controllers\AdminReportController;
 use App\Http\Controllers\NotificationController;
 
@@ -14,6 +15,8 @@ Route::prefix('app')->middleware('auth')->group(function () {
     Route::get('/reports', [AdminReportController::class, 'index'])->name('report.index');
     Route::get('/reports/{id}/show', [AdminReportController::class, 'show'])->name('report.show');
     Route::patch('/reports/{id}/status', [AdminReportController::class, 'updateStatus'])->name('laporan.updateStatus');
+
+    Route::get('/reports-archive', [AdminReportArchiveController::class, 'index'])->name('report.archive');
 
     Route::get('/report/notifications', [NotificationController::class, 'notifications'])->name('report.notifications');
     Route::get('/report/notifications/{id}/show', [NotificationController::class, 'showNotification'])->name('report.show.notification');

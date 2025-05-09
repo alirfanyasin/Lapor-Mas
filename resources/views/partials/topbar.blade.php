@@ -110,13 +110,13 @@
           </div>
 
 
-          <a href="#"
+          {{-- <a href="#"
             class="block py-2 text-sm font-medium text-center rounded-b-lg text-default-900 bg-default-50 hover:bg-default-100">
             <div class="inline-flex items-center ">
               <i class="i-tabler-eye size-4 text-default-500"></i>
               View all
             </div>
-          </a>
+          </a> --}}
         </div>
       </div>
 

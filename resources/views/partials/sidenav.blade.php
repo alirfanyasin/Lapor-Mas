@@ -27,7 +27,7 @@
 
         <li class="px-3 py-2 text-xs font-medium uppercase text-default-500">Apps</li>
 
-        <li class="menu-item hs-accordion">
+        <li class="menu-item hs-accordion {{ Request::is('app/reports-archive', 'app/reports/*') ? 'active' : '' }}">
           <a href="javascript:void(0)"
             class="hs-accordion-toggle group flex items-center gap-x-3.5 rounded-md px-3 py-2 text-sm font-medium text-default-400 transition-all hover:bg-default-100/5 hs-accordion-active:bg-default-100/5 hs-accordion-active:text-default-100">
             <i class="i-lucide-layout size-5"></i>
@@ -35,18 +35,21 @@
             <span class="menu-arrow"></span>
           </a>
 
-          <div class="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300">
+          <div
+            class="hs-accordion-content {{ Request::is('app/reports', 'app/reports-archive', 'app/reports/*') ? '' : 'hidden' }} w-full overflow-hidden transition-[height] duration-300"
+            style="{{ Request::is('app/reports', 'app/reports-archive', 'app/reports/*') ? 'display: block;' : 'height: 0px;' }}">
+
             <ul class="mt-1 space-y-1">
-              <li class="menu-item">
-                <a class="flex items-center gap-x-3.5 rounded-md px-3 py-1.5 text-sm font-medium text-default-400 transition-all hover:bg-default-100/5"
+              <li class="menu-item {{ Request::is('app/reports/*') ? 'active' : '' }}">
+                <a class="flex items-center gap-x-3.5 rounded-md px-3 py-1.5 text-sm font-medium text-default-400 transition-all hover:bg-default-100/5  {{ Request::is('app/reports/*') ? 'active' : '' }}"
                   href="{{ route('report.index') }}">
                   <i class="menu-dot"></i>
                   Laporan Masuk
                 </a>
               </li>
-              <li class="menu-item">
-                <a class="flex items-center gap-x-3.5 rounded-md px-3 py-1.5 text-sm font-medium text-default-400 transition-all hover:bg-default-100/5"
-                  href="ui-alerts.html">
+              <li class="menu-item {{ Request::is('app/reports-archive') ? 'active' : '' }}">
+                <a class="flex items-center gap-x-3.5 rounded-md px-3 py-1.5 text-sm font-medium text-default-400 transition-all hover:bg-default-100/5 {{ Request::is('app/reports-archive') ? 'active' : '' }}"
+                  href="{{ route('report.archive') }}">
                   <i class="menu-dot"></i>
                   Arsip Laporan
                 </a>
